@@ -5,8 +5,6 @@ from passlib.hash import sha256_crypt
 
 auth_route = Blueprint('auth', __name__)
 
-users = db.users
-
 @auth_route.route('/auth/login', methods=['POST'])
 def login():
     req = request.get_json()
@@ -19,13 +17,14 @@ def login():
     if not password_candidate:
         return {'password': 'This field is required.'}, 400
 
+    users = db.users
     existing_user = users.find_one({'email': email})
 
     if not existing_user:
         return jsonify({'message':'The email you entered is not connected to an account.'}), 422
 
     if sha256_crypt.verify(password_candidate, existing_user['password']):
-        access_token = create_access_token(identity=existing_user['email'])
+        access_token = create_access_token(identity=str(existing_user['_id']))
         resp = jsonify({'message': 'Uspešno prijavljivanje', 'access_token' : access_token})
         return resp, 200
     else:
@@ -56,7 +55,7 @@ def register():
         return {'password': 'This field is required.'}, 400
 
     # Check if email already exists
-
+    users = db.users
     existing_user = users.find_one({'email': email})
 
     if existing_user:
@@ -80,5 +79,6 @@ def register():
 @jwt_required()
 def current_user():
     user_id = get_jwt_identity()
-    existing_user = users.find_one({'email': user_id})
+    users = db.users
+    existing_user = users.find_one({'_id': user_id})
     return {'user': existing_user}

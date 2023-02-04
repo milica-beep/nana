@@ -13,6 +13,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatListModule} from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './layouts/home/home.component';
 import { LandingComponent } from './layouts/landing/landing.component';
+import { CreateNewRecipeComponent } from './components/create-new-recipe/create-new-recipe.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { LandingComponent } from './layouts/landing/landing.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    LandingComponent
+    LandingComponent,
+    CreateNewRecipeComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import { LandingComponent } from './layouts/landing/landing.component';
     MatSnackBarModule,
     MatSelectModule,
     MatChipsModule,
+    MatListModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -1,0 +1,67 @@
+<div class="container">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+            <mat-label for="title">Title</mat-label>
+            <input matInput formControlName="title" class="form-control">
+        </mat-form-field>
+        <br>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Select categories</mat-label>
+                <mat-select formControlName="categories" multiple>
+                    <mat-option *ngFor="let cat of all_categories" [value]="cat">{{ cat.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Select culinary level</mat-label>
+                <mat-select formControlName="level">
+                    <mat-option *ngFor="let lev of levels" [value]="lev">{{ lev.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <span *ngIf="ingredients">
+            <mat-list>
+                <mat-list-item *ngFor="let i of ingredients">{{ i }}</mat-list-item>
+            </mat-list>
+        </span>
+        <mat-form-field appearance="fill">
+            <mat-label for="ingredient">Ingredient</mat-label>
+            <input matInput formControlName="ingredient" class="form-control"
+                      placeholder="Ex. Two apples, 200g oats...">
+        </mat-form-field>
+        <br>
+        <button type="button" mat-raised-button color="secondary" (click)="addIngredient()">
+            Add ingredient
+        </button>
+
+        <br>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="preparation">Preparation</mat-label>
+            <textarea matInput formControlName="preparation" class="form-control"></textarea>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="prepTime">Prep-time</mat-label>
+            <input matInput formControlName="prepTime" class="form-control">
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="briefSummary">Brief summary</mat-label>
+            <input matInput formControlName="briefSummary" class="form-control">
+        </mat-form-field>
+    
+        <br>
+    
+        <button mat-raised-button color="primary">
+            Add recipe
+        </button>
+    </form>
+</div>
