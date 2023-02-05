@@ -1,3 +1,7 @@
+<mat-chip-listbox>
+    <mat-chip-option color="accent" [routerLink]="['/add-new-recipe']">+Add new recipe</mat-chip-option>
+    <mat-chip-option *ngFor="let c of categories" (click)="filterByCategory(c._id)">{{ c.name }}</mat-chip-option>
+</mat-chip-listbox>
 <span *ngIf="latestRecipes">
     <mat-list>
         <mat-list-item *ngFor="let recipe of latestRecipes">

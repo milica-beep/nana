@@ -83,3 +83,17 @@ def get_recipes():
     print(latest_recipes)
     
     return json.loads(json_util.dumps({'recipes': latest_recipes})), 200
+
+@recipe_route.route('/recipe/get-latest-by-cat', methods=['GET'])
+def get_by_cat():
+    page = int(request.args.get('page'))
+    catId = request.args.get('categoryId')
+    limit = 5
+    print(catId)
+
+    recipes_collection = db.recipes
+
+    latest_recipes = list(recipes_collection.find({'categories': {'$elemMatch': {'_id': ObjectId(catId)}}}))
+    print(latest_recipes)
+    
+    return json.loads(json_util.dumps({'recipes': latest_recipes})), 200
