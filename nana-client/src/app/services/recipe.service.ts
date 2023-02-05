@@ -22,8 +22,9 @@ export class RecipeService {
     return this.http.post(this.serverUrl + 'recipe/create', recipe);
   }
 
-  getRecipes() {
-    return this.http.get<any>(this.serverUrl + "recipe/get-all-recipes");
+  getRecipes(page: Number) {
+    let params = new HttpParams().set("page", page.toString());
+    return this.http.get<any>(this.serverUrl + "recipe/get-latest", {params:params});
   }
 
   getRecipe(recipeId: string) {

@@ -6,8 +6,9 @@ export class Recipe {
     title!: string;
     ingredients: string[] = [];
     preparation!: string;
-    prepTime!: string;
+    preparationTime!: string;
     briefSummary!: string;
     categories: Category[] = [];
     level: Level = new Level();
+    timestamp!: any;
   }

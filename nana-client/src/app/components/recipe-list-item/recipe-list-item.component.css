@@ -1,0 +1,33 @@
+.page-cont {
+    margin-left: 2%;
+    outline: 1px solid gray;
+}
+
+.recipe-info {
+    display: inline-flex;
+}
+
+.recipe-info img {
+    margin-right: 15px;
+}
+
+.recipe-title {
+    font-size: xx-large;
+}
+
+.recipe.ingredients {
+    font-size: large;
+}
+
+
+.recipe.preparation {
+    font-size: large;
+}
+
+.preparationTime {
+    font-size: large;
+}
+
+.card-username {
+    font-style: italic;
+}

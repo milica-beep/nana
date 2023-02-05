@@ -1,6 +1,8 @@
+import datetime
 import json
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, decode_token
+import pymongo
 from mongo_db import db
 from bson.objectid import ObjectId
 from bson import json_util
@@ -30,8 +32,9 @@ def create():
     title = str(req['title'])
     ingredients = req['ingredients']
     preparation = str(req['preparation'])
-    preparation_time = str(req['prepTime'])
+    preparation_time = str(req['preparationTime'])
     brief_summary = str(req['briefSummary'])
+    timestamp = datetime.datetime.today().replace(microsecond=0)
 
     categories = req['categories']
     level = req['level']
@@ -39,6 +42,8 @@ def create():
     for cat in categories:
         print(cat)
         cat['_id'] = ObjectId(cat['_id']['$oid'])
+
+    level['_id'] = ObjectId(level['_id']['$oid'])
 
     if not title:
         return {'title': 'This field is required.'}, 400
@@ -53,11 +58,12 @@ def create():
         'title': title,
         'ingredients': ingredients,
         'preparation': preparation,
-        'preparation_time': preparation_time,
-        'brief_summary': brief_summary,
+        'preparationTime': preparation_time,
+        'briefSummary': brief_summary,
         'categories': categories,
         'level': level,
-        'user_id': user_id
+        'userId': user_id,
+        'timestamp': timestamp
     }
 
     recipes_collection = db.recipes
@@ -65,3 +71,15 @@ def create():
     recipes_collection.insert_one(new_recipe)
 
     return {'message':'OK'}, 200
+
+@recipe_route.route('/recipe/get-latest', methods=['GET'])
+def get_recipes():
+    page = int(request.args.get('page'))
+    limit = 5
+
+    recipes_collection = db.recipes
+
+    latest_recipes = list(recipes_collection.find().sort('timestamp', pymongo.DESCENDING).skip(page*limit).limit(limit))
+    print(latest_recipes)
+    
+    return json.loads(json_util.dumps({'recipes': latest_recipes})), 200

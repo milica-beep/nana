@@ -1,0 +1,11 @@
+<mat-toolbar  color="primary"> 
+    <span [routerLink]="['/home']">nana</span>
+    <!-- spacer -->
+    <span style="flex: 1 1 auto"></span>
+    <form [formGroup]="searchForm" (ngSubmit)="search()">
+        <mat-form-field appearance="outline" >
+            <mat-icon matPrefix (click)="search()">search</mat-icon>
+            <input formControlName="search" type="search" matInput placeholder="Search" />
+        </mat-form-field>
+    </form>
+</mat-toolbar>

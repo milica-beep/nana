@@ -26,6 +26,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './layouts/home/home.component';
 import { LandingComponent } from './layouts/landing/landing.component';
 import { CreateNewRecipeComponent } from './components/create-new-recipe/create-new-recipe.component';
+import { RecipeListItemComponent } from './components/recipe-list-item/recipe-list-item.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { CreateNewRecipeComponent } from './components/create-new-recipe/create-
     RegisterComponent,
     HomeComponent,
     LandingComponent,
-    CreateNewRecipeComponent
+    CreateNewRecipeComponent,
+    RecipeListItemComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

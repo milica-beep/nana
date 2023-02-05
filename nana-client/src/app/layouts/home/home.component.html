@@ -1,1 +1,9 @@
-<p>home works!</p>
+<span *ngIf="latestRecipes">
+    <mat-list>
+        <mat-list-item *ngFor="let recipe of latestRecipes">
+            <span matListItemTitle>{{ recipe['title'] }}</span>
+            <span matListItemLine>{{ recipe['briefSummary'] }}</span>
+            <span>Level: {{ recipe['level']['name'] }}</span>
+        </mat-list-item>
+    </mat-list>
+</span>

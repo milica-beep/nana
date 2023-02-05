@@ -64,7 +64,7 @@ onSubmit() {
   new_recipe.title = this.f["title"].value;
   new_recipe.ingredients = this.ingredients;
   new_recipe.preparation = this.f["preparation"].value;
-  new_recipe.prepTime = this.f["prepTime"].value;
+  new_recipe.preparationTime = this.f["prepTime"].value;
   new_recipe.briefSummary = this.f["briefSummary"].value;
   new_recipe.categories = this.f["categories"].value;
   new_recipe.level = this.f["level"].value;
