@@ -153,11 +153,19 @@ def delete_recipe():
 
     recipes_collection = db.recipes
 
-    print('Id to delete', recipe_id)
-
     recipes_collection.delete_one({'_id': ObjectId(recipe_id)})
 
     return jsonify({
         'message': 'Ok'
     })
+
+@recipe_route.route('/recipe/search', methods=['GET'])
+def search():
+    query = request.args.get('query')
+
+    recipes_collection = db.recipes
+
+    recipes = list(recipes_collection.find({'title': {'$regex': query, '$options': 'i'}}))
+
+    return json.loads(json_util.dumps({'recipes': recipes})), 200
 

@@ -5,6 +5,7 @@ import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.compon
 import { HomeComponent } from './layouts/home/home.component';
 import { LandingComponent } from './layouts/landing/landing.component';
 import { RecipeComponent } from './layouts/recipe/recipe.component';
+import { SearchResultComponent } from './layouts/search-result/search-result.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'add-new-recipe', component: CreateNewRecipeComponent},
   { path: 'recipe/:id', component: RecipeComponent },
   { path: 'edit-recipe/:id', component: EditRecipeComponent },
+  { path: 'search/:query', component: SearchResultComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,24 @@
+<span *ngIf="result">
+    <mat-list>
+        <mat-list-item *ngFor="let recipe of result">
+            <span matListItemTitle>
+                <span [routerLink]="['/recipe', recipe._id['$oid']]">
+                    {{ recipe['title'] }}
+                </span>
+                <span *ngIf="recipe.userId == currentUserId">
+                    <button mat-icon-button matTooltip="Edit recipe" 
+                            matTooltipPosition="above"
+                            [routerLink]="['/edit-recipe', recipe._id['$oid']]">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Delete recipe" matTooltipPosition="above" (click)="onDelete(recipe._id['$oid'])">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </span>
+            </span>
+            <span matListItemLine>{{ recipe['briefSummary'] }}</span>
+            <span>Level: {{ recipe['level']['name'] }}</span>
+
+        </mat-list-item>
+    </mat-list>
+</span>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
@@ -25,6 +26,6 @@ export class HeaderComponent implements OnInit {
   get f() { return this.searchForm.controls; }
   search() {
     this.searchQuery = this.f["search"].value;
-    console.log("Search query u header", this.searchQuery);   
+    this.router.navigateByUrl('/search/'+this.searchQuery);
   }
 }

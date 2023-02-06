@@ -30,6 +30,7 @@ import { RecipeListItemComponent } from './components/recipe-list-item/recipe-li
 import { HeaderComponent } from './components/header/header.component';
 import { RecipeComponent } from './layouts/recipe/recipe.component';
 import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
+import { SearchResultComponent } from './layouts/search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.compon
     RecipeListItemComponent,
     HeaderComponent,
     RecipeComponent,
-    EditRecipeComponent
+    EditRecipeComponent,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule,

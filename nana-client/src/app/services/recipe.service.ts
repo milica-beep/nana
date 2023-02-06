@@ -45,4 +45,9 @@ export class RecipeService {
     let params = new HttpParams().set("id", recipeId.toString());
     return this.http.delete<any>(this.serverUrl + 'recipe/delete-recipe', {params:params});
   }
+
+  search(query: any) {
+    let params = new HttpParams().set("query", query);
+    return this.http.get<any>(this.serverUrl + "recipe/search", {params:params});
+  }
 }
