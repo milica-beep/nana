@@ -26,6 +26,7 @@ def get_levels():
     return json.loads(json_util.dumps({'levels': levels})), 200
 
 @recipe_route.route('/recipe/create', methods=['POST'])
+@jwt_required()
 def create():
     req = request.get_json()
 
@@ -40,7 +41,6 @@ def create():
     level = req['level']
 
     for cat in categories:
-        print(cat)
         cat['_id'] = ObjectId(cat['_id']['$oid'])
 
     level['_id'] = ObjectId(level['_id']['$oid'])
@@ -51,8 +51,7 @@ def create():
     if not preparation:
         return {'preparation': 'This field is required.'}, 400
     
-   # user_id = get_jwt_identity()
-    user_id = ObjectId('63de22ca32e742dafa9c2d18')
+    user_id = get_jwt_identity()
 
     new_recipe = {
         'title': title,
@@ -80,7 +79,6 @@ def get_recipes():
     recipes_collection = db.recipes
 
     latest_recipes = list(recipes_collection.find().sort('timestamp', pymongo.DESCENDING).skip(page*limit).limit(limit))
-    print(latest_recipes)
     
     return json.loads(json_util.dumps({'recipes': latest_recipes})), 200
 
@@ -93,7 +91,59 @@ def get_by_cat():
 
     recipes_collection = db.recipes
 
-    latest_recipes = list(recipes_collection.find({'categories': {'$elemMatch': {'_id': ObjectId(catId)}}}))
-    print(latest_recipes)
+    latest_recipes = list(recipes_collection.find({'categories': {'$elemMatch': {'_id': ObjectId(catId)}}}).sort('timestamp', pymongo.DESCENDING).skip(page*limit).limit(limit))
     
     return json.loads(json_util.dumps({'recipes': latest_recipes})), 200
+
+@recipe_route.route('/recipe/get-recipe', methods=['GET'])
+def get_recipe_by_id():
+    recipe_id = request.args.get('id')
+
+    recipes_collection = db.recipes
+
+    recipe = recipes_collection.find_one({'_id': ObjectId(recipe_id)})
+
+    return json.loads(json_util.dumps(recipe)), 200
+
+@recipe_route.route('/recipe/update-recipe', methods=['POST'])
+@jwt_required()
+def update_recipe():
+    req = request.get_json()
+
+    id = req['_id']['$oid']
+    title = str(req['title'])
+    ingredients = req['ingredients']
+    preparation = str(req['preparation'])
+    preparation_time = str(req['preparationTime'])
+    brief_summary = str(req['briefSummary'])
+    timestamp = datetime.datetime.today().replace(microsecond=0)
+
+    categories = req['categories']
+    level = req['level']
+
+    for cat in categories:
+        cat['_id'] = ObjectId(cat['_id']['$oid'])
+
+    level['_id'] = ObjectId(level['_id']['$oid'])
+
+    if not title:
+        return {'title': 'This field is required.'}, 400
+    
+    if not preparation:
+        return {'preparation': 'This field is required.'}, 400
+
+    user_id = get_jwt_identity()
+
+    rec_id = ObjectId(id)
+
+    recipe_collection = db.recipes
+
+    recipe = recipe_collection.find_one({'_id': rec_id})
+
+    if(str(user_id) != str(recipe['userId'])):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    recipe_collection.update_one({'_id': rec_id}, {'$set' : {'title': title,'ingredients': ingredients, 'preparation': preparation,'preparationTime': preparation_time,'briefSummary': brief_summary,'categories': categories,'level': level,'timestamp': timestamp}})
+
+    return json.loads(json_util.dumps({'message': 'ok'})), 200
+
