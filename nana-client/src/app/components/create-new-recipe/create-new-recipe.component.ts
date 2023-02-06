@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
 import { Level } from 'src/app/models/level';
@@ -20,7 +21,8 @@ export class CreateNewRecipeComponent {
 
   constructor(private formBuilder: FormBuilder,
     private recipeService: RecipeService,
-    private router: Router) { }
+    private router: Router,
+    private _snackBar: MatSnackBar) { }
 
 ngOnInit(): void {
   this.recipeForm = this.formBuilder.group({
@@ -76,7 +78,8 @@ onSubmit() {
       error: (e) => console.error(e),
       complete: () => {
         console.info('complete')
-        //this.router.navigateByUrl('/home');
+       // this.router.navigateByUrl('/home');
+       // this._snackBar.open('Recipe succesfully added!', 'Ok');
       }  
     })
   }

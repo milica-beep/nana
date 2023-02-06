@@ -15,8 +15,10 @@ export class HomeComponent {
   latestRecipes: Recipe[] = [];
   page: number = 0;
   categories: Category[] = [];
-  selectedFilter: string = "";
+  selectedFilter: any = "";
   currentUserId: any;
+
+  disableLoadMore: boolean = false;
 
   constructor(private recipeService: RecipeService,
               private authService: AuthService,
@@ -30,8 +32,6 @@ export class HomeComponent {
       this.latestRecipes.map(el => {
         el['timestamp'] = new Date(el['timestamp']['$date'])
       })
-
-      console.log(this.latestRecipes)
     })
     this.recipeService.getCategories().subscribe(res =>{
       this.categories = res['categories'];
@@ -53,24 +53,46 @@ export class HomeComponent {
       this.selectedFilter = catId;
       this.recipeService.getRecipesByCategory(this.page, catId['$oid']).subscribe(res => {
         this.latestRecipes = res['recipes'];
-        this.latestRecipes.forEach(el => {
-          console.log(el)
-        })
       })
     } else if(this.selectedFilter == catId ){
       this.selectedFilter = "";
       this.page = 0;
       this.recipeService.getRecipes(this.page).subscribe(res => {
         this.latestRecipes = res['recipes'];
-        this.latestRecipes.forEach(el => {
-          console.log(el)
-        })
       })
     }
   }
 
   onDelete(recipeId: any) {
-    console.log(recipeId)
+    this.recipeService.deleteRecipe(recipeId).subscribe(res => {
+      this.recipeService.getRecipes(this.page).subscribe(res => {
+        this.latestRecipes = res['recipes'];
+      })
+    })
+  }
+
+  loadMore() {
+    this.page = this.page + 1;
+    if(this.selectedFilter != "") {
+      this.recipeService.getRecipesByCategory(this.page, this.selectedFilter['$oid']).subscribe(res => {
+        if(res['recipes'].length == 0) {
+          this.disableLoadMore = true;
+        }
+        res['recipes'].forEach((element: Recipe) => {
+          this.latestRecipes.push(element);
+        });
+      })
+    }
+    else {
+      this.recipeService.getRecipes(this.page).subscribe(res => {
+        if(res['recipes'].length == 0) {
+          this.disableLoadMore = true;
+        }
+        res['recipes'].forEach((element: Recipe) => {
+          this.latestRecipes.push(element);
+        });
+      })
+    }
   }
 
 }

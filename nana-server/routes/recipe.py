@@ -147,3 +147,17 @@ def update_recipe():
 
     return json.loads(json_util.dumps({'message': 'ok'})), 200
 
+@recipe_route.route('/recipe/delete-recipe', methods=['DELETE'])
+def delete_recipe():
+    recipe_id = request.args.get('id')
+
+    recipes_collection = db.recipes
+
+    print('Id to delete', recipe_id)
+
+    recipes_collection.delete_one({'_id': ObjectId(recipe_id)})
+
+    return jsonify({
+        'message': 'Ok'
+    })
+

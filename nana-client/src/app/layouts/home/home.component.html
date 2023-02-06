@@ -9,7 +9,7 @@
                 <span [routerLink]="['/recipe', recipe._id['$oid']]">
                     {{ recipe['title'] }}
                 </span>
-                <span *ngIf="recipe.userId['$oid'] == currentUserId">
+                <span *ngIf="recipe.userId == currentUserId">
                     <button mat-icon-button matTooltip="Edit recipe" 
                             matTooltipPosition="above"
                             [routerLink]="['/edit-recipe', recipe._id['$oid']]">
@@ -25,4 +25,6 @@
 
         </mat-list-item>
     </mat-list>
+
+    <button [disabled]="disableLoadMore" mat-button (click)="loadMore()">Load more</button>
 </span>

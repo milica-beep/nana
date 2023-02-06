@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class RegisterComponent implements OnInit {
   inputType:string = "password";
   
   constructor(private formBuilder: FormBuilder,
-              private auth: AuthService) { }
+              private auth: AuthService,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -40,7 +42,11 @@ export class RegisterComponent implements OnInit {
              .subscribe(
               {
                 error: (e) => console.error(e),
-                complete: () => console.info('complete') 
+                complete: () => {
+                  console.info('complete') 
+                  this._snackBar.open('Excellent! You can now login using your email and password!', 'Close');
+
+                }
               }
             );
   }
