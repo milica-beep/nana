@@ -11,14 +11,10 @@ mat-form-field {
     width: 70%;
 }
 
-.add-btn {
+.save-btn {
     margin-left: 30%;
 }
 
 .italic {
     font-style: italic;
-}
-
-.underline {
-    text-decoration: underline;
 }

@@ -1,0 +1,36 @@
+.recipe-title {
+    font-size: xx-large;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.flex-cont {
+    display: flex;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.preparation-time {
+    font-style: italic;
+    margin-left: 5px;
+}
+
+.recipe-ingredients {
+    margin-left: 3%;
+    font-size: large;
+    font-style: italic;
+}
+
+.preparation {
+    font-style: italic;
+    font-size: large;
+}
+
+.recipe-preparation {
+    margin-left: 3%;
+}
+
+mat-card-subtitle {
+    font-style: italic;
+}

@@ -1,5 +1,5 @@
-<div class="container">
-    <h1>Create your <span class="underline">own</span> recipe</h1>
+<div class="container" *ngIf="recipe != undefined">
+    <h1>Edit your recipe: <span class="italic">{{ recipe.title }}</span></h1>
     <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
             <mat-label for="title">Title</mat-label>
@@ -10,7 +10,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Select categories</mat-label>
                 <mat-select formControlName="categories" multiple>
-                    <mat-option *ngFor="let cat of all_categories" [value]="cat">{{ cat.name }}</mat-option>
+                    <mat-option *ngFor="let cat of all_categories" [value]="cat._id['$oid']">{{ cat.name }}</mat-option>
             </mat-select>
         </mat-form-field>
 
@@ -19,8 +19,10 @@
         <mat-form-field appearance="fill">
             <mat-label>Select culinary level</mat-label>
                 <mat-select formControlName="level">
-                    <mat-option *ngFor="let lev of levels" [value]="lev">{{ lev.name }}</mat-option>
-            </mat-select>
+                    <mat-option *ngFor="let lev of levels" [value]="lev['_id']['$oid']" >
+                        {{ lev.name }}
+                    </mat-option>
+                </mat-select>
         </mat-form-field>
 
         <span *ngIf="ingredients">
@@ -37,6 +39,10 @@
             </button>
         </mat-form-field>
 
+        <!-- <button type="button" mat-raised-button color="secondary" (click)="addIngredient()">
+            Add ingredient
+        </button> -->
+
         <br>
 
         <mat-form-field appearance="fill">
@@ -47,8 +53,8 @@
         <br>
 
         <mat-form-field appearance="fill">
-            <mat-label for="prepTime">Prep-time</mat-label>
-            <input matInput formControlName="prepTime" class="form-control">
+            <mat-label for="preparationTime">Prep-time</mat-label>
+            <input matInput formControlName="preparationTime" class="form-control">
         </mat-form-field>
 
         <br>
@@ -60,8 +66,8 @@
     
         <br>
     
-        <button class="add-btn" mat-raised-button color="primary">
-            Add recipe
+        <button mat-raised-button color="primary" class="save-btn">
+            Save
         </button>
     </form>
 </div>

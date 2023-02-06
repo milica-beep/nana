@@ -28,6 +28,8 @@ import { LandingComponent } from './layouts/landing/landing.component';
 import { CreateNewRecipeComponent } from './components/create-new-recipe/create-new-recipe.component';
 import { RecipeListItemComponent } from './components/recipe-list-item/recipe-list-item.component';
 import { HeaderComponent } from './components/header/header.component';
+import { RecipeComponent } from './layouts/recipe/recipe.component';
+import { EditRecipeComponent } from './components/edit-recipe/edit-recipe.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { HeaderComponent } from './components/header/header.component';
     LandingComponent,
     CreateNewRecipeComponent,
     RecipeListItemComponent,
-    HeaderComponent
+    HeaderComponent,
+    RecipeComponent,
+    EditRecipeComponent
   ],
   imports: [
     BrowserModule,

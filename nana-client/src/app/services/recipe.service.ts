@@ -32,7 +32,7 @@ export class RecipeService {
     return this.http.get<any>(this.serverUrl + "recipe/get-latest-by-cat", {params:params});
   }
 
-  getRecipe(recipeId: string) {
+  getRecipe(recipeId: any) {
     let params = new HttpParams().set("id", recipeId.toString());
     return this.http.get<any>(this.serverUrl + "recipe/get-recipe", {params:params});
   }
