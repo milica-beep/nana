@@ -78,8 +78,8 @@ onSubmit() {
       error: (e) => console.error(e),
       complete: () => {
         console.info('complete')
-       // this.router.navigateByUrl('/home');
-       // this._snackBar.open('Recipe succesfully added!', 'Ok');
+       this.router.navigateByUrl('/home');
+       this._snackBar.open('Recipe succesfully added!', 'Ok');
       }  
     })
   }

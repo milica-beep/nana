@@ -2,7 +2,7 @@ import json
 from bson import ObjectId
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, decode_token
-from mongo_db import db
+from mongo_db import get_db
 from passlib.hash import sha256_crypt
 from bson import json_util
 
@@ -20,6 +20,7 @@ def login():
     if not password_candidate:
         return {'password': 'This field is required.'}, 400
 
+    db = get_db()
     users = db.users
     existing_user = users.find_one({'email': email})
 
@@ -58,6 +59,8 @@ def register():
         return {'password': 'This field is required.'}, 400
 
     # Check if email already exists
+
+    db = get_db()
     users = db.users
     existing_user = users.find_one({'email': email})
 
@@ -82,6 +85,8 @@ def register():
 @jwt_required()
 def current_user():
     user_id = get_jwt_identity()
+
+    db = get_db()
     users = db.users
     existing_user = users.find_one({'_id': ObjectId(user_id)})
     return json.loads(json_util.dumps(existing_user)), 200

@@ -3,28 +3,34 @@
     <mat-chip-option *ngFor="let c of categories" (click)="filterByCategory(c._id)">{{ c.name }}</mat-chip-option>
 </mat-chip-listbox>
 <span *ngIf="latestRecipes">
-    <mat-list>
-        <mat-list-item *ngFor="let recipe of latestRecipes">
-            <span matListItemTitle>
-                <span [routerLink]="['/recipe', recipe._id['$oid']]">
-                    {{ recipe['title'] }}
-                </span>
-                <span *ngIf="recipe.userId == currentUserId">
-                    <button mat-icon-button matTooltip="Edit recipe" 
-                            matTooltipPosition="above"
-                            [routerLink]="['/edit-recipe', recipe._id['$oid']]">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button matTooltip="Delete recipe" matTooltipPosition="above" (click)="onDelete(recipe._id['$oid'])">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </span>
-            </span>
-            <span matListItemLine>{{ recipe['briefSummary'] }}</span>
-            <span>Level: {{ recipe['level']['name'] }}</span>
-
-        </mat-list-item>
-    </mat-list>
-
+        <div >
+            <mat-card *ngFor="let recipe of latestRecipes">
+                <mat-card-header>
+                    <mat-card-title class="" >
+                        <span [routerLink]="['/recipe', recipe._id['$oid']]">{{ recipe['title'] }}</span>
+                        <span *ngIf="recipe.userId['$oid'] == currentUserId" class="icons">
+                            <button mat-icon-button matTooltip="Edit recipe" 
+                                    matTooltipPosition="above"
+                                    [routerLink]="['/edit-recipe', recipe._id['$oid']]">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="Delete recipe" matTooltipPosition="above" (click)="onDelete(recipe._id['$oid'])">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </span>
+                    </mat-card-title> 
+                    
+                    
+                    <mat-card-subtitle> Categories: <span *ngFor="let c of recipe['categories']">{{ c['name'] }} </span> </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <span>Brief summary: {{ recipe['briefSummary'] }}</span>
+                    <br>
+                    <span>Level: {{ recipe['level']['name'] }}</span>
+                </mat-card-content>
+            </mat-card>
+            
+            
+        </div>
     <button [disabled]="disableLoadMore" mat-button (click)="loadMore()">Load more</button>
 </span>

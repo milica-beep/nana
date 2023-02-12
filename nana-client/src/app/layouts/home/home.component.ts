@@ -49,6 +49,8 @@ export class HomeComponent {
   }
 
   filterByCategory(catId: any) {
+    this.page = 0;
+    this.disableLoadMore = false;
     if(this.selectedFilter != catId) {
       this.selectedFilter = catId;
       this.recipeService.getRecipesByCategory(this.page, catId['$oid']).subscribe(res => {
@@ -65,6 +67,7 @@ export class HomeComponent {
 
   onDelete(recipeId: any) {
     this.recipeService.deleteRecipe(recipeId).subscribe(res => {
+      this.page = 0;
       this.recipeService.getRecipes(this.page).subscribe(res => {
         this.latestRecipes = res['recipes'];
       })
