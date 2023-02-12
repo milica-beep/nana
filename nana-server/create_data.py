@@ -85,8 +85,8 @@ categories = list(categories_collection.find({}))
 users = list(user_collection.find({}))
 
 # for getting random date
-start_date = datetime.datetime.now() - datetime.timedelta(days=20)
-end_date = datetime.datetime.now() - datetime.timedelta(days=5)
+start_date = datetime.datetime.now()
+end_date = start_date + datetime.timedelta(days=10)
 
 recipes = [
     {
