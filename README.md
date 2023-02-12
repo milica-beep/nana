@@ -1,4 +1,4 @@
-# Mynotes
+# nana
 Aplikacija namenjena pisanju i pretraživanju recepata. Razvijena korišćenjem *Flask* i *Angular* okruženja i mongodb baze podataka.
 
 # Backend
