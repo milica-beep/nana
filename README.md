@@ -1,30 +1,28 @@
 # nana
-Aplikacija namenjena pisanju i pretraživanju recepata. Razvijena korišćenjem *Flask* i *Angular* okruženja i *mongoDB* baze podataka.
-
+Application meant for creating and browsing recipes. Developed using *Flask*, *Angular* and *mongoDB*
 # Backend
 
-Pokretanje:
-1. Instalacija potrebnih modula korišćenjem pip packet manager-a
+1. Install python modules using pip:
 	```bash
 	pip install -r requirements.txt
 	```
 
-2. Kreiranje i dodavanje podataka u bazu:
+2. Populate database:
 	```bash
 	python create_data.py
 	```
-3. Pokretanje aplikacije: 
+3. Run app: 
 	```bash
 	python app.py
 	```
   
  ## Frontend
-1. Instalacija Node.js-a i npm-a (https://nodejs.org/en/download/)
-2. Instalacija Angular framework-a korišćenjem npm packet manager-a
+1. Install Node.js and npm (https://nodejs.org/en/download/)
+2. Install Angular using npm:
 	```bash
 	npm install -g @angular/cli
 	```
-3. Pokretanje aplikacije
+3. Run app:
 	```bash
 	ng serve --open
 	```
